@@ -1,9 +1,61 @@
-#app {
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
   font-family: system-ui, sans-serif;
-  padding: 2rem;
-  text-align: center;
 }
 
-h1 {
-  font-size: 1.5rem;
+.app-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ccc;
+  background: #f5f5f5;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.panel {
+  flex: 1;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panel:last-child {
+  border-right: none;
+}
+
+.panel-title {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ccc;
+  background: #eaeaea;
+  font-size: 0.875rem;
+}
+
+.panel-body {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.app-status {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #ccc;
+  background: #f5f5f5;
+  font-size: 0.875rem;
+  color: #333;
+  flex-shrink: 0;
 }
