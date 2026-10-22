@@ -1,0 +1,9 @@
+#app {
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
