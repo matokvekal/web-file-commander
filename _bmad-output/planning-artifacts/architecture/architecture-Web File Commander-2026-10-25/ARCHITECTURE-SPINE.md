@@ -46,13 +46,13 @@ Dependencies point only along these arrows. `components` never import from `acce
 
 - **Binds:** all
 - **Prevents:** UI or state code calling handles directly, which makes it untestable and lets write calls creep in.
-- **Rule:** `FolderAccess` exposes read operations only: choose a folder, list a folder's entries. It exposes no write, delete, or move operation. Nothing outside `src/access/` references `showDirectoryPicker`, `FileSystemDirectoryHandle`, or `FileSystemFileHandle`.
+- **Rule:** `FolderAccess` exposes read operations only: choose a folder, open a subfolder of a folder, list a folder's entries. It exposes no write, delete, or move operation. Nothing outside `src/access/` references `showDirectoryPicker`, `FileSystemDirectoryHandle`, or `FileSystemFileHandle`.
 
 ### AD-3 — Plain types cross the boundary; handles stay opaque
 
 - **Binds:** FR-2, FR-3, FR-6
 - **Prevents:** Two units inventing different entry shapes, or the UI depending on the handle's API.
-- **Rule:** The port returns `Entry = { name: string; kind: 'file' | 'folder' }` and an opaque `FolderRef`. State and UI store and pass `FolderRef` without reading it. Only the access layer turns a `FolderRef` back into a handle. The port returns entries unsorted.
+- **Rule:** The port returns `Entry = { name: string; kind: 'file' | 'folder' }` and an opaque `FolderRef`. Choosing and opening a folder each return a `FolderRef`; choosing also returns the folder's name. State and UI store and pass `FolderRef` without reading it. Only the access layer turns a `FolderRef` back into a handle. The port returns entries unsorted.
 
 ### AD-4 — The access layer maps every failure to one typed result
 

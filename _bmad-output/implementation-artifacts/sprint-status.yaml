@@ -38,5 +38,5 @@ development_status:
   epic-1: in-progress
   1-1-select-a-folder-and-see-its-entries: done
   1-2-show-loading-and-access-denied-feedback: review
-  1-3-open-subfolders-and-go-back: backlog
+  1-3-open-subfolders-and-go-back: review
   epic-1-retrospective: optional

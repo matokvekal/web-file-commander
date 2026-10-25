@@ -6,7 +6,8 @@ interface AppProps {
 }
 
 export default function App({ access }: AppProps) {
-  const { supported, status, entries, selectFolder } = useFolderBrowser(access);
+  const { supported, status, entries, folderName, canGoBack, selectFolder, openFolder, goBack } =
+    useFolderBrowser(access);
 
   let listBody;
   let statusText = 'Ready';
@@ -34,6 +35,17 @@ export default function App({ access }: AppProps) {
           <li
             key={`${entry.kind}:${entry.name}`}
             className={entry.kind === 'folder' ? 'entry-row entry-folder' : 'entry-row'}
+            tabIndex={0}
+            onClick={entry.kind === 'folder' ? () => void openFolder(entry.name) : undefined}
+            onKeyDown={
+              entry.kind === 'folder'
+                ? (event) => {
+                    if (event.key === 'Enter') {
+                      void openFolder(entry.name);
+                    }
+                  }
+                : undefined
+            }
           >
             {entry.kind === 'folder' ? `${entry.name}/` : entry.name}
           </li>
@@ -63,6 +75,16 @@ export default function App({ access }: AppProps) {
         </section>
         <section className="panel panel-list" aria-label="File List">
           <h2 className="panel-title">File List</h2>
+          {folderName !== null && (
+            <div className="list-bar">
+              {canGoBack && (
+                <button type="button" className="button" onClick={() => void goBack()}>
+                  Back
+                </button>
+              )}
+              <span className="folder-name">{folderName}</span>
+            </div>
+          )}
           <div className="panel-body" aria-live="polite">
             {listBody}
           </div>

@@ -10,9 +10,13 @@ export interface Entry {
 }
 
 export type ChooseResult =
-  | { status: 'ok'; folder: FolderRef }
+  | { status: 'ok'; folder: FolderRef; name: string }
   | { status: 'denied' }
   | { status: 'cancelled' };
+
+export type OpenResult =
+  | { status: 'ok'; folder: FolderRef }
+  | { status: 'denied' };
 
 export type ListResult =
   | { status: 'ok'; entries: Entry[] }
@@ -22,4 +26,5 @@ export interface FolderAccess {
   isSupported(): boolean;
   chooseFolder(): Promise<ChooseResult>;
   listEntries(folder: FolderRef): Promise<ListResult>;
+  openFolder(parent: FolderRef, name: string): Promise<OpenResult>;
 }

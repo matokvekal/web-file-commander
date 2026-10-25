@@ -1,4 +1,11 @@
-import type { ChooseResult, Entry, FolderAccess, FolderRef, ListResult } from './FolderAccess';
+import type {
+  ChooseResult,
+  Entry,
+  FolderAccess,
+  FolderRef,
+  ListResult,
+  OpenResult,
+} from './FolderAccess';
 
 interface DirectoryEntryHandle {
   readonly name: string;
@@ -7,6 +14,7 @@ interface DirectoryEntryHandle {
 
 interface DirectoryHandle extends DirectoryEntryHandle {
   values(): AsyncIterable<DirectoryEntryHandle>;
+  getDirectoryHandle(name: string): Promise<DirectoryHandle>;
 }
 
 interface PickerHost {
@@ -17,6 +25,12 @@ interface PickerHost {
 const host = globalThis as unknown as PickerHost;
 const handles = new WeakMap<FolderRef, DirectoryHandle>();
 
+function wrap(handle: DirectoryHandle): FolderRef {
+  const folder = {} as FolderRef;
+  handles.set(folder, handle);
+  return folder;
+}
+
 const browserFolderAccess: FolderAccess = {
   isSupported() {
     return host.isSecureContext !== false && typeof host.showDirectoryPicker === 'function';
@@ -25,9 +39,7 @@ const browserFolderAccess: FolderAccess = {
   async chooseFolder(): Promise<ChooseResult> {
     try {
       const handle = await host.showDirectoryPicker!({ mode: 'read' });
-      const folder = {} as FolderRef;
-      handles.set(folder, handle);
-      return { status: 'ok', folder };
+      return { status: 'ok', folder: wrap(handle), name: handle.name };
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
         return { status: 'cancelled' };
@@ -47,6 +59,18 @@ const browserFolderAccess: FolderAccess = {
         entries.push({ name: item.name, kind: item.kind === 'directory' ? 'folder' : 'file' });
       }
       return { status: 'ok', entries };
+    } catch {
+      return { status: 'denied' };
+    }
+  },
+
+  async openFolder(parent: FolderRef, name: string): Promise<OpenResult> {
+    const handle = handles.get(parent);
+    if (!handle) {
+      return { status: 'denied' };
+    }
+    try {
+      return { status: 'ok', folder: wrap(await handle.getDirectoryHandle(name)) };
     } catch {
       return { status: 'denied' };
     }

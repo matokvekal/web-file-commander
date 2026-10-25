@@ -109,3 +109,23 @@
 .entry-folder {
   font-weight: bold;
 }
+
+.list-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.folder-name {
+  font-weight: bold;
+}
+
+.entry-row:focus-visible,
+.button:focus-visible {
+  outline: 2px solid #333;
+  outline-offset: -2px;
+}

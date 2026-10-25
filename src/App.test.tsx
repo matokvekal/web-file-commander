@@ -176,6 +176,95 @@ describe('loading and access denied', () => {
   });
 });
 
+const tree = {
+  name: 'Root',
+  entries: [
+    { name: 'Docs', kind: 'folder' as const },
+    { name: 'Locked', kind: 'folder' as const },
+    { name: 'readme.txt', kind: 'file' as const },
+  ],
+  children: {
+    Docs: {
+      entries: [
+        { name: 'guide.md', kind: 'file' as const },
+        { name: 'Deep', kind: 'folder' as const },
+      ],
+      children: { Deep: { entries: [{ name: 'deep.txt', kind: 'file' as const }] } },
+    },
+    Locked: { entries: [], failListing: true },
+  },
+};
+
+async function openRoot() {
+  const view = renderApp({ picks: [tree] });
+  fireEvent.click(screen.getByRole('button', { name: 'Select Folder' }));
+  await screen.findByText('Docs/');
+  return view;
+}
+
+describe('subfolders and going back', () => {
+  it('shows the selected folder name and no Back button at the chosen folder', async () => {
+    const { container } = await openRoot();
+    expect(container.querySelector('.folder-name')?.textContent).toBe('Root');
+    expect(screen.queryByRole('button', { name: 'Back' })).toBeNull();
+  });
+
+  it('opens a subfolder on click and shows its entries, name and Back', async () => {
+    const { container } = await openRoot();
+    fireEvent.click(screen.getByText('Docs/'));
+    await screen.findByText('guide.md');
+    expect(container.querySelector('.folder-name')?.textContent).toBe('Docs');
+    expect(screen.getByRole('button', { name: 'Back' })).not.toBeNull();
+    expect(screen.getByLabelText('Status bar').textContent).toBe('2 items');
+  });
+
+  it('opens a focused subfolder with Enter', async () => {
+    await openRoot();
+    fireEvent.keyDown(screen.getByText('Docs/'), { key: 'Enter' });
+    await screen.findByText('guide.md');
+  });
+
+  it('does nothing when a file row is clicked or Enter is pressed', async () => {
+    const { container } = await openRoot();
+    fireEvent.click(screen.getByText('readme.txt'));
+    fireEvent.keyDown(screen.getByText('readme.txt'), { key: 'Enter' });
+    await wait(20);
+    expect(container.querySelector('.folder-name')?.textContent).toBe('Root');
+    expect(screen.getByText('Docs/')).not.toBeNull();
+  });
+
+  it('goes back to the parent folder and hides Back at the chosen folder', async () => {
+    const { container } = await openRoot();
+    fireEvent.click(screen.getByText('Docs/'));
+    await screen.findByText('guide.md');
+    fireEvent.click(screen.getByText('Deep/'));
+    await screen.findByText('deep.txt');
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    await screen.findByText('guide.md');
+    expect(container.querySelector('.folder-name')?.textContent).toBe('Docs');
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    await screen.findByText('readme.txt');
+    expect(container.querySelector('.folder-name')?.textContent).toBe('Root');
+    expect(screen.queryByRole('button', { name: 'Back' })).toBeNull();
+  });
+
+  it('shows Access Denied for a refused subfolder and still lets the user go back', async () => {
+    await openRoot();
+    fireEvent.click(screen.getByText('Locked/'));
+    await screen.findByText('Access Denied');
+    expect(screen.getByLabelText('Status bar').textContent).toBe('Access denied');
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    await screen.findByText('readme.txt');
+  });
+
+  it('makes every entry row reachable by keyboard', async () => {
+    const { container } = await openRoot();
+    const rows = Array.from(container.querySelectorAll('.entry-row'));
+    expect(rows).toHaveLength(3);
+    rows.forEach((row) => expect(row.getAttribute('tabindex')).toBe('0'));
+  });
+});
+
 describe('sortEntries', () => {
   it('does not change the input array', () => {
     const input = [...mixedFolder.entries];

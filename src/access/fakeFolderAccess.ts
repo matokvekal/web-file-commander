@@ -1,7 +1,16 @@
-import type { ChooseResult, Entry, FolderAccess, FolderRef, ListResult } from './FolderAccess';
+import type {
+  ChooseResult,
+  Entry,
+  FolderAccess,
+  FolderRef,
+  ListResult,
+  OpenResult,
+} from './FolderAccess';
 
 export interface FakeFolder {
+  name?: string;
   entries: Entry[];
+  children?: Record<string, FakeFolder>;
   delayMs?: number;
   failListing?: boolean;
 }
@@ -18,6 +27,12 @@ export default function createFakeFolderAccess(options: FakeOptions = {}): Folde
   const picks = [...(options.picks ?? [])];
   const folders = new WeakMap<FolderRef, FakeFolder>();
 
+  function wrap(folder: FakeFolder): FolderRef {
+    const ref = {} as FolderRef;
+    folders.set(ref, folder);
+    return ref;
+  }
+
   return {
     isSupported() {
       return supported;
@@ -31,9 +46,7 @@ export default function createFakeFolderAccess(options: FakeOptions = {}): Folde
       if (pick === 'denied') {
         return { status: 'denied' };
       }
-      const folder = {} as FolderRef;
-      folders.set(folder, pick);
-      return { status: 'ok', folder };
+      return { status: 'ok', folder: wrap(pick), name: pick.name ?? 'folder' };
     },
 
     async listEntries(folder: FolderRef): Promise<ListResult> {
@@ -48,6 +61,14 @@ export default function createFakeFolderAccess(options: FakeOptions = {}): Folde
         return { status: 'denied' };
       }
       return { status: 'ok', entries: found.entries.map((entry) => ({ ...entry })) };
+    },
+
+    async openFolder(parent: FolderRef, name: string): Promise<OpenResult> {
+      const child = folders.get(parent)?.children?.[name];
+      if (!child) {
+        return { status: 'denied' };
+      }
+      return { status: 'ok', folder: wrap(child) };
     },
   };
 }
