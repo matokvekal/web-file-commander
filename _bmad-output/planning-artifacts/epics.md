@@ -1,5 +1,5 @@
 ---
-status: draft
+status: final
 stepsCompleted: [step-01, step-02, step-03, step-04]
 inputDocuments:
   - _bmad-output/planning-artifacts/prds/prd-Web File Commander-2026-10-25/prd.md
@@ -55,6 +55,13 @@ UX-DR6: Keep the existing grey style and tokens from `DESIGN.md`: no new colors,
 UX-DR7: Keyboard: Tab moves through Select Folder, Back, and the entry rows; Enter opens a folder row; no other shortcuts.
 UX-DR8: Accessibility: text contrast at least 4.5:1; loading, empty, and denied messages announced through a polite live region; state never shown by color alone.
 UX-DR9: Desktop width only. Folder Tree and Preview panels stay as empty placeholders.
+
+### Open Assumptions (from the architecture spine)
+
+- A1: The "browser not supported" message is not in the UX documents yet; its text and placement are decided in Story 1.1.
+- A2: Cancelling the folder picker is not a denial: no change, no message (AR4, Story 1.1).
+- A3: Entry order follows UX U5 (subfolders first, then files, each A-Z); PRD Open Question 2 stays open (AR7, Story 1.1).
+- A4: The folder picker needs a secure context (HTTPS or localhost); not yet verified (AR10).
 
 ### FR Coverage Map
 
