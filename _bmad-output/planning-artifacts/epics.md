@@ -58,7 +58,7 @@ UX-DR9: Desktop width only. Folder Tree and Preview panels stay as empty placeho
 
 ### Open Assumptions (from the architecture spine)
 
-- A1: The "browser not supported" message is not in the UX documents yet; its text and placement are decided in Story 1.1.
+- A1: Settled in Story 1.1: the unsupported-browser message is "This browser can't open folders. Use Chrome or Edge on localhost or HTTPS." (File List panel, Select Folder disabled).
 - A2: Cancelling the folder picker is not a denial: no change, no message (AR4, Story 1.1).
 - A3: Entry order follows UX U5 (subfolders first, then files, each A-Z); PRD Open Question 2 stays open (AR7, Story 1.1).
 - A4: The folder picker needs a secure context (HTTPS or localhost); not yet verified (AR10).
@@ -121,7 +121,8 @@ Covers FR1, FR2, NFR1; AR1 to AR5, AR7, AR8, AR9; UX-DR1, UX-DR3 (display only),
 
 **Given** the browser has no `showDirectoryPicker`
 **When** the app loads
-**Then** a "browser not supported" message is shown and the app does not crash
+**Then** the File List shows "This browser can't open folders. Use Chrome or Edge on localhost or HTTPS." and Select Folder is disabled
+**And** the app does not crash
 
 **Given** the code under `src/access/`
 **When** it is reviewed

@@ -54,6 +54,7 @@ Short, plain, no exclamation marks.
 | Loaded | Entries | N items |
 | Empty folder | "This folder is empty." | 0 items |
 | Denied | "Access Denied" (bold), no Entries | Access denied |
+| Unsupported browser | "This browser can't open folders. Use Chrome or Edge on localhost or HTTPS." (plain text, Select Folder disabled) | Ready |
 
 After a denied state the Select Folder button still works. The message replaces the previous list. [ASSUMPTION U8] Loading indicator is text only. [ASSUMPTION U6: no spinner or animation.]
 
@@ -86,6 +87,7 @@ After a denied state the Select Folder button still works. The message replaces 
 - U6: Loading is shown as text only.
 - U7: No keyboard shortcuts beyond Tab and Enter.
 - U8: A denied folder clears the previous list instead of keeping it on screen.
+- U9 (settled in Story 1.1): the unsupported-browser message is the plain text above, shown in the File List panel, with Select Folder disabled.
 - D1: Bold marks folders and the Access Denied message.
 - D2: Desktop width only.
 - D3: A trailing `/` and bold mark folders; no icons.
