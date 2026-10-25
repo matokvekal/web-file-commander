@@ -21,7 +21,7 @@ The folder picker only works in a secure context: `https://` or `http://localhos
 - [ ] On load, the File List shows "Select a folder to start." and the status bar shows "Ready".
 - [ ] The Folder Tree and Preview panels are empty.
 - [ ] Select Folder opens the system folder picker.
-- [ ] Choosing the 3 files + 2 subfolders folder lists all 5 entries, subfolders first (bold, trailing `/`), then files, each alphabetical. The status bar shows "5 items".
+- [x] Choosing the 3 files + 2 subfolders folder lists all 5 entries, subfolders first (bold, trailing `/`), then files, each alphabetical. The status bar shows "5 items".
 - [ ] Choosing the empty folder shows "This folder is empty." and "0 items".
 - [ ] Choosing a second folder replaces the first list.
 - [ ] Cancelling the picker leaves the list and the status bar unchanged and shows no message.
@@ -32,6 +32,6 @@ The folder picker only works in a secure context: `https://` or `http://localhos
 
 ## Result
 
-- Browser and version:
-- Date:
-- Result (pass / fail, with notes):
+- Browser and version: Chrome (version not recorded)
+- Date: 2026-10-25
+- Result: pass. Files and subfolders are displayed correctly in Chrome. The other checklist items were not individually reported and are left unchecked.
