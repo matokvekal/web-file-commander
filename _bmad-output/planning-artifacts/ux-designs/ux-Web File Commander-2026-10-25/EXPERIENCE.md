@@ -34,7 +34,7 @@ Short, plain, no exclamation marks.
 | Loading | "Loading…" |
 | Access refused | "Access Denied" |
 | Empty folder | "This folder is empty." |
-| Status bar | "Ready", "Loading…", "Access denied", "N items" |
+| Status bar | "Ready", "Loading…", "Access denied", "N items" ("1 item" for a single entry) |
 
 ## Component Patterns
 
@@ -51,7 +51,7 @@ Short, plain, no exclamation marks.
 |---|---|---|
 | Empty (start) | "Select a folder to start." | Ready |
 | Loading | "Loading…" in place of the list | Loading… |
-| Loaded | Entries | N items |
+| Loaded | Entries | N items ("1 item" for one entry) |
 | Empty folder | "This folder is empty." | 0 items |
 | Denied | "Access Denied" (bold), no Entries | Access denied |
 | Unsupported browser | "This browser can't open folders. Use Chrome or Edge on localhost or HTTPS." (plain text, Select Folder disabled) | Ready |

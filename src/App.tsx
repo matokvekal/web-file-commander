@@ -35,24 +35,25 @@ export default function App({ access }: AppProps) {
           <li
             key={`${entry.kind}:${entry.name}`}
             className={entry.kind === 'folder' ? 'entry-row entry-folder' : 'entry-row'}
-            tabIndex={0}
-            onClick={entry.kind === 'folder' ? () => void openFolder(entry.name) : undefined}
-            onKeyDown={
-              entry.kind === 'folder'
-                ? (event) => {
-                    if (event.key === 'Enter') {
-                      void openFolder(entry.name);
-                    }
-                  }
-                : undefined
-            }
           >
-            {entry.kind === 'folder' ? `${entry.name}/` : entry.name}
+            {entry.kind === 'folder' ? (
+              <button
+                type="button"
+                className="entry-label entry-open"
+                onClick={() => void openFolder(entry.name)}
+              >
+                {`${entry.name}/`}
+              </button>
+            ) : (
+              <span className="entry-label" tabIndex={0}>
+                {entry.name}
+              </span>
+            )}
           </li>
         ))}
       </ul>
     );
-    statusText = `${entries.length} items`;
+    statusText = `${entries.length} ${entries.length === 1 ? 'item' : 'items'}`;
   }
 
   return (

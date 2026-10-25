@@ -84,7 +84,7 @@ The user can go back from the Selected Folder to its Parent Folder, which become
 **Consequences (testable):**
 - After opening a subfolder and then choosing to go back, the File List shows the Entries of the Folder the subfolder was opened from.
 - Going back follows the same loading and access-denied behavior as FR-4 and FR-5.
-- When the Selected Folder is the Folder the user originally chose, going back is not offered. How far above that Folder the user may go is Open Question 1.
+- When the Selected Folder is the Folder the user originally chose, going back is not offered. Going back stops at that Folder (Open Question 1, resolved by architecture AD-5).
 
 **Out of Scope:** history navigation (forward/back through previously visited Folders), breadcrumbs.
 
@@ -142,9 +142,9 @@ If access to a Folder is refused, for any reason, the app displays an Access-Den
 
 ## 8. Open Questions
 
-1. How far above the originally chosen Folder may the user go back? Default: only to the Folder originally chosen, since access was granted for that Folder. Decide in architecture; owner: product owner; revisit when the architecture phase starts.
-2. How are Entries ordered (for example, subfolders first, then alphabetical)? Default if unanswered: no specific order guaranteed.
-3. Which browsers and operating systems must the app support? Deferred to the architecture phase (see the brief's addendum).
+1. **Resolved.** How far above the originally chosen Folder may the user go back? Only to the Folder originally chosen, since access was granted for that Folder (architecture AD-5).
+2. How are Entries ordered? Implemented as subfolders first, then files, each alphabetical (architecture AD-7, UX U5). This was an unconfirmed assumption; it is not yet approved as a requirement.
+3. **Resolved.** Supported browsers: Chrome and Edge (Chromium) only for v2, no fallback (architecture AD-1). Operating systems are not restricted.
 
 ## 9. Assumptions Index
 *All approved by the product owner on 2026-10-25.*

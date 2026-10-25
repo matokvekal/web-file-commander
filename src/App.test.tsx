@@ -109,7 +109,7 @@ describe('loading and access denied', () => {
     expect(screen.getByLabelText('Status bar').textContent).toBe('Loading…');
     await screen.findByText('a.txt');
     expect(container.textContent).not.toContain('Loading…');
-    expect(screen.getByLabelText('Status bar').textContent).toBe('1 items');
+    expect(screen.getByLabelText('Status bar').textContent).toBe('1 item');
   });
 
   it('shows Access Denied in bold with no entries when the user denies access', async () => {
@@ -218,14 +218,17 @@ describe('subfolders and going back', () => {
     expect(screen.getByLabelText('Status bar').textContent).toBe('2 items');
   });
 
-  it('opens a focused subfolder with Enter', async () => {
+  it('exposes each subfolder row as a button with the folder name', async () => {
     await openRoot();
-    fireEvent.keyDown(screen.getByText('Docs/'), { key: 'Enter' });
+    const button = screen.getByRole('button', { name: 'Docs/' });
+    expect(button.tagName).toBe('BUTTON');
+    fireEvent.click(button);
     await screen.findByText('guide.md');
   });
 
   it('does nothing when a file row is clicked or Enter is pressed', async () => {
     const { container } = await openRoot();
+    expect(screen.queryByRole('button', { name: 'readme.txt' })).toBeNull();
     fireEvent.click(screen.getByText('readme.txt'));
     fireEvent.keyDown(screen.getByText('readme.txt'), { key: 'Enter' });
     await wait(20);
@@ -261,7 +264,10 @@ describe('subfolders and going back', () => {
     const { container } = await openRoot();
     const rows = Array.from(container.querySelectorAll('.entry-row'));
     expect(rows).toHaveLength(3);
-    rows.forEach((row) => expect(row.getAttribute('tabindex')).toBe('0'));
+    rows.forEach((row) => {
+      const label = row.querySelector('.entry-label') as HTMLElement;
+      expect(label.tagName === 'BUTTON' || label.getAttribute('tabindex') === '0').toBe(true);
+    });
   });
 });
 

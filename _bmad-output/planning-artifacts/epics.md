@@ -50,7 +50,7 @@ UX-DR1: A **Select Folder** button in the header opens folder selection.
 UX-DR2: The File List panel shows the Selected Folder's name and a **Back** button above the list; Back is hidden at the originally chosen Folder.
 UX-DR3: Entry rows: folders are bold with a trailing `/`, files are regular; hover and keyboard focus use the `surface-title` grey background; clicking a folder row or pressing Enter opens it; file rows do nothing in v2.
 UX-DR4: File List panel messages: "Select a folder to start.", "Loading…", "Access Denied" (bold), "This folder is empty." A denied folder clears the previous list.
-UX-DR5: Status bar text follows the state: "Ready", "Loading…", "Access denied", "N items".
+UX-DR5: Status bar text follows the state: "Ready", "Loading…", "Access denied", "N items" ("1 item" for a single entry).
 UX-DR6: Keep the existing grey style and tokens from `DESIGN.md`: no new colors, icons, shadows, or fonts; buttons use grey fill, 1px border, square corners, visible focus outline.
 UX-DR7: Keyboard: Tab moves through Select Folder, Back, and the entry rows; Enter opens a folder row; no other shortcuts.
 UX-DR8: Accessibility: text contrast at least 4.5:1; loading, empty, and denied messages announced through a polite live region; state never shown by color alone.
