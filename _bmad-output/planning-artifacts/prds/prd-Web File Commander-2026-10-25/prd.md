@@ -84,7 +84,7 @@ The user can go back from the Selected Folder to its Parent Folder, which become
 **Consequences (testable):**
 - After opening a subfolder and then choosing to go back, the File List shows the Entries of the Folder the subfolder was opened from.
 - Going back follows the same loading and access-denied behavior as FR-4 and FR-5.
-- When the Selected Folder has no Parent Folder to go back to, going back is not offered or has no effect, and the app does not crash. How far above the originally chosen Folder the user may go is Open Question 1.
+- When the Selected Folder is the Folder the user originally chose, going back is not offered. How far above that Folder the user may go is Open Question 1.
 
 **Out of Scope:** history navigation (forward/back through previously visited Folders), breadcrumbs.
 
@@ -102,10 +102,11 @@ While the Entries of a Selected Folder are being retrieved, the app displays a L
 
 #### FR-5: Show an Access-Denied Message when access is refused
 
-If the user denies access to a Folder, the app displays an Access-Denied Message. Realizes UJ-2.
+If access to a Folder is refused, for any reason, the app displays an Access-Denied Message. Realizes UJ-2.
 
 **Consequences (testable):**
-- The Access-Denied Message reads "Access Denied". (Requirements Test 3.)
+- When the user denies access, the Access-Denied Message reads "Access Denied". (Requirements Test 3.)
+- Access refused for any other reason shows the same message.
 - The app does not crash, and the user can immediately perform Folder Selection again.
 - No Entries of the refused Folder are shown.
 
@@ -134,7 +135,7 @@ If the user denies access to a Folder, the app displays an Access-Denied Message
 
 **Primary**
 - **SM-1**: All three acceptance tests in `docs/requirements.md` (Folder Selection, Folder Loading, Access Denied) pass. Validates FR-1, FR-2, FR-4, FR-5.
-- **SM-2**: A user can select a Folder, open a subfolder, and read its Entries without any explanation. Validates FR-1, FR-2, FR-3, FR-6. Judged informally by the product owner, with no formal usability test. (A5)
+- **SM-2**: In one attempt and without help, the product owner can select a Folder, open a subfolder, and go back to the Parent Folder. Validates FR-1, FR-2, FR-3, FR-6. Judged informally by the product owner, with no formal usability test. (A5)
 
 **Counter-metrics (do not optimize)**
 - **SM-C1**: Number of features. Passing the tests must not be achieved by adding editing, deletion, moving, uploading, or preview. Counterbalances SM-1.
