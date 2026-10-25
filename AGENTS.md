@@ -1,9 +1,9 @@
 <!-- bmad:context -->
-<!-- Verified 2026-10-25 against ea297af. Managed by bmad-project-context; edits inside this block are replaced on refresh. Keep anything you want preserved outside the markers. -->
+<!-- Verified 2026-10-25 against af30651. Managed by bmad-project-context; edits inside this block are replaced on refresh. Keep anything you want preserved outside the markers. -->
 
 ## Web File Commander
 
-BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Testing Library, plain CSS, ESLint (typescript-eslint), no backend. The app is currently only a static layout: header, empty Folder Tree / File List / Preview panels, status bar. BMAD v6.12.4 is installed (`_bmad/`, skills in `.claude/skills/`); other docs live in `docs/`.
+BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Testing Library, plain CSS, ESLint (typescript-eslint), no backend. The app is a read-only folder browser for Chrome/Edge (browser folder picker): Select Folder, File List with open-subfolder and Back, loading and access-denied messages. Folder Tree and Preview panels are empty placeholders. BMAD v6.12.4 is installed (`_bmad/`, skills in `.claude/skills/`); other docs live in `docs/`.
 
 ## Policy
 
@@ -15,6 +15,8 @@ BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Te
 ## Where things are
 
 - Entry: `src/main.tsx` mounts `App` into `#app`; layout in `src/App.tsx` and `src/App.css`.
+- Only `src/access/` may touch the browser folder API (`FolderAccess` port; real and fake adapters). Folder state lives in `src/state/useFolderBrowser.ts`. Tests use `fakeFolderAccess`. A test enforces the boundary.
+- Planning artifacts (brief, PRD, UX, architecture spine, `epics.md`) are under `_bmad-output/planning-artifacts/`; sprint status and the retrospective under `_bmad-output/implementation-artifacts/`.
 - Requirements draft and exercise notes: `docs/` (`docs/requirements.md` is a draft).
 
 ## Running and verifying
@@ -40,5 +42,11 @@ After changes run `npm run check` and fix failures.
 - Tests sit next to the code as `*.test.tsx`.
 - No comments in code unless explicitly requested.
 - Read existing files to match conventions before changing them.
+
+## Known pitfalls
+
+- Write multi-line files with the file tools, not shell heredocs: in this Windows shell two heredoc writes failed and wrote nothing. Check `git status` after writing.
+- A `cd` in one shell call carries into the next. Use absolute paths; a later command once ran from inside `.claude/skills/`.
+- When you change code or config that `AGENTS.md` describes, update `AGENTS.md` in the same commit; `src/project-rules.test.ts` fails on missing npm scripts and files.
 
 <!-- /bmad:context -->
