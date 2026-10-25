@@ -2,6 +2,8 @@ import type { ChooseResult, Entry, FolderAccess, FolderRef, ListResult } from '.
 
 export interface FakeFolder {
   entries: Entry[];
+  delayMs?: number;
+  failListing?: boolean;
 }
 
 export type FakePick = FakeFolder | 'cancelled' | 'denied';
@@ -37,6 +39,12 @@ export default function createFakeFolderAccess(options: FakeOptions = {}): Folde
     async listEntries(folder: FolderRef): Promise<ListResult> {
       const found = folders.get(folder);
       if (!found) {
+        return { status: 'denied' };
+      }
+      if (found.delayMs) {
+        await new Promise((resolve) => setTimeout(resolve, found.delayMs));
+      }
+      if (found.failListing) {
         return { status: 'denied' };
       }
       return { status: 'ok', entries: found.entries.map((entry) => ({ ...entry })) };

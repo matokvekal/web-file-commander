@@ -18,6 +18,12 @@ export default function App({ access }: AppProps) {
     );
   } else if (status === 'idle') {
     listBody = <p className="panel-message">Select a folder to start.</p>;
+  } else if (status === 'loading') {
+    listBody = <p className="panel-message">Loading…</p>;
+    statusText = 'Loading…';
+  } else if (status === 'denied') {
+    listBody = <p className="panel-message panel-message-strong">Access Denied</p>;
+    statusText = 'Access denied';
   } else if (status === 'empty') {
     listBody = <p className="panel-message">This folder is empty.</p>;
     statusText = '0 items';
@@ -57,7 +63,9 @@ export default function App({ access }: AppProps) {
         </section>
         <section className="panel panel-list" aria-label="File List">
           <h2 className="panel-title">File List</h2>
-          <div className="panel-body">{listBody}</div>
+          <div className="panel-body" aria-live="polite">
+            {listBody}
+          </div>
         </section>
         <section className="panel panel-preview" aria-label="Preview">
           <h2 className="panel-title">Preview</h2>

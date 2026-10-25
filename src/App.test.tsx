@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 import App from './App';
 import createFakeFolderAccess from './access/fakeFolderAccess';
@@ -90,6 +90,89 @@ describe('App', () => {
     const button = screen.getByRole('button', { name: 'Select Folder' }) as HTMLButtonElement;
     expect(button.disabled).toBe(true);
     expect(screen.getByLabelText('Status bar').textContent).toBe('Ready');
+  });
+});
+
+function listText(container: HTMLElement) {
+  return container.querySelector('.panel-list .panel-body')?.textContent;
+}
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+describe('loading and access denied', () => {
+  it('shows Loading… while a folder loads, then the entries', async () => {
+    const { container } = renderApp({
+      picks: [{ entries: [{ name: 'a.txt', kind: 'file' }], delayMs: 60 }],
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Select Folder' }));
+    await waitFor(() => expect(listText(container)).toBe('Loading…'));
+    expect(screen.getByLabelText('Status bar').textContent).toBe('Loading…');
+    await screen.findByText('a.txt');
+    expect(container.textContent).not.toContain('Loading…');
+    expect(screen.getByLabelText('Status bar').textContent).toBe('1 items');
+  });
+
+  it('shows Access Denied in bold with no entries when the user denies access', async () => {
+    const { container } = renderApp({ picks: ['denied'] });
+    fireEvent.click(screen.getByRole('button', { name: 'Select Folder' }));
+    await screen.findByText('Access Denied');
+    expect(screen.getByText('Access Denied').classList.contains('panel-message-strong')).toBe(true);
+    expect(container.querySelectorAll('.entry-row')).toHaveLength(0);
+    expect(screen.getByLabelText('Status bar').textContent).toBe('Access denied');
+  });
+
+  it('shows the same message when reading the folder fails, and clears the old list', async () => {
+    const { container } = renderApp({
+      picks: [mixedFolder, { entries: [], failListing: true }],
+    });
+    const button = screen.getByRole('button', { name: 'Select Folder' });
+    fireEvent.click(button);
+    await screen.findByText('Docs/');
+    fireEvent.click(button);
+    await screen.findByText('Access Denied');
+    expect(container.querySelectorAll('.entry-row')).toHaveLength(0);
+  });
+
+  it('recovers after a denial when a readable folder is picked', async () => {
+    renderApp({ picks: ['denied', mixedFolder] });
+    const button = screen.getByRole('button', { name: 'Select Folder' });
+    fireEvent.click(button);
+    await screen.findByText('Access Denied');
+    fireEvent.click(button);
+    await screen.findByText('Docs/');
+    expect(screen.queryByText('Access Denied')).toBeNull();
+  });
+
+  it('cancelling the picker neither shows Access Denied nor clears the list', async () => {
+    renderApp({ picks: [mixedFolder, 'cancelled'] });
+    const button = screen.getByRole('button', { name: 'Select Folder' });
+    fireEvent.click(button);
+    await screen.findByText('Docs/');
+    fireEvent.click(button);
+    await wait(20);
+    expect(screen.queryByText('Access Denied')).toBeNull();
+    expect(screen.getByText('Docs/')).not.toBeNull();
+    expect(screen.getByLabelText('Status bar').textContent).toBe('5 items');
+  });
+
+  it('ignores a slow earlier load that finishes after a newer one', async () => {
+    const { container } = renderApp({
+      picks: [
+        { entries: [{ name: 'slow.txt', kind: 'file' }], delayMs: 80 },
+        { entries: [{ name: 'fast.txt', kind: 'file' }] },
+      ],
+    });
+    const button = screen.getByRole('button', { name: 'Select Folder' });
+    fireEvent.click(button);
+    fireEvent.click(button);
+    await screen.findByText('fast.txt');
+    await wait(150);
+    expect(container.querySelector('.panel-list .panel-body')?.textContent).toBe('fast.txt');
+  });
+
+  it('announces messages through a polite live region', () => {
+    const { container } = renderApp();
+    expect(container.querySelector('.panel-list .panel-body')?.getAttribute('aria-live')).toBe('polite');
   });
 });
 

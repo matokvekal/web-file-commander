@@ -86,6 +86,10 @@
   margin: 0;
 }
 
+.panel-message-strong {
+  font-weight: bold;
+}
+
 .entry-list {
   margin: -1rem;
   padding: 0;

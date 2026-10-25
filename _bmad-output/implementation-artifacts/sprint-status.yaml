@@ -37,6 +37,6 @@ story_location: _bmad-output/implementation-artifacts
 development_status:
   epic-1: in-progress
   1-1-select-a-folder-and-see-its-entries: done
-  1-2-show-loading-and-access-denied-feedback: backlog
+  1-2-show-loading-and-access-denied-feedback: review
   1-3-open-subfolders-and-go-back: backlog
   epic-1-retrospective: optional

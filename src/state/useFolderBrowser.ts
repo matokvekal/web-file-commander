@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import type { Entry, FolderAccess } from '../access/FolderAccess';
 
 export type BrowserStatus = 'idle' | 'loading' | 'loaded' | 'empty' | 'denied';
@@ -18,18 +18,24 @@ export function sortEntries(entries: Entry[]): Entry[] {
 export default function useFolderBrowser(access: FolderAccess): FolderBrowser {
   const [status, setStatus] = useState<BrowserStatus>('idle');
   const [entries, setEntries] = useState<Entry[]>([]);
+  const latestRequest = useRef(0);
 
   const selectFolder = useCallback(async () => {
     const chosen = await access.chooseFolder();
     if (chosen.status === 'cancelled') {
       return;
     }
+    const request = ++latestRequest.current;
     if (chosen.status === 'denied') {
       setEntries([]);
       setStatus('denied');
       return;
     }
+    setStatus('loading');
     const listed = await access.listEntries(chosen.folder);
+    if (request !== latestRequest.current) {
+      return;
+    }
     if (listed.status === 'denied') {
       setEntries([]);
       setStatus('denied');
