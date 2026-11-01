@@ -6,6 +6,6 @@ export default tseslint.config(
     extends: [...tseslint.configs.recommended],
   },
   {
-    ignores: ['dist', 'node_modules', 'vite-tmp', 'mods/*/.claude-plugin/types'],
+    ignores: ['dist', 'node_modules', 'vite-tmp', 'mods/*/.claude-plugin/types', '.claude/worktrees/**'],
   }
 );
