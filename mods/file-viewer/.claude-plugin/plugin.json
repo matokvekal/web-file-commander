@@ -1,6 +1,7 @@
 {
   "name": "file-viewer",
   "version": "0.1.0",
+  "author": { "name": "gilad" },
   "description": "Pane beside the chat showing the project file tree with sizes",
   "types": "./types/index.d.ts"
 }

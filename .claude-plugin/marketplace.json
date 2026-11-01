@@ -5,8 +5,13 @@
   "plugins": [
     {
       "name": "project-tools",
-      "source": "./plugins/project-tools",
+      "source": "./local-marketplace/plugins/project-tools",
       "description": "pre-commit-check skill and /project-check command for this project"
+    },
+    {
+      "name": "file-viewer",
+      "source": "./mods/file-viewer",
+      "description": "Pane beside the chat showing the project file tree with file preview"
     }
   ]
 }

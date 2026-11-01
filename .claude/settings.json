@@ -1,7 +1,11 @@
 {
   "extraKnownMarketplaces": {
     "local-marketplace": {
-      "source": { "source": "directory", "path": "./local-marketplace" }
+      "source": { "source": "directory", "path": "." }
     }
+  },
+  "enabledPlugins": {
+    "project-tools@local-marketplace": true,
+    "file-viewer@local-marketplace": true
   }
 }

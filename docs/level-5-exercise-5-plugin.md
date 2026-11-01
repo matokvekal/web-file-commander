@@ -5,8 +5,8 @@ The `pre-commit-check` skill and the `/project-check` command are packaged as th
 ## Layout
 
 ```
-.claude/settings.json                              extraKnownMarketplaces -> ./local-marketplace
-local-marketplace/.claude-plugin/marketplace.json  marketplace "local-marketplace"
+.claude/settings.json                              extraKnownMarketplaces -> "." and enabledPlugins (Exercise 8)
+.claude-plugin/marketplace.json                    marketplace "local-marketplace" (moved to the repo root in Exercise 8; lists project-tools and mods/file-viewer)
 local-marketplace/plugins/project-tools/
   .claude-plugin/plugin.json
   skills/pre-commit-check/   copy of the skill (script path uses ${CLAUDE_SKILL_DIR})
@@ -18,7 +18,7 @@ All paths are relative. The hook only prints one line; it reads and writes nothi
 
 ## Teammate setup
 
-After cloning, Claude Code offers the `local-marketplace` marketplace from the committed `.claude/settings.json`. Install with `claude plugin install project-tools@local-marketplace`. The plugin is not force-enabled in committed settings.
+After cloning, Claude Code offers the `local-marketplace` marketplace from the committed `.claude/settings.json`. Since Exercise 8 the committed settings also enable both plugins; see `docs/level-5-exercise-8-fresh-clone.md`.
 
 ## Notes
 
