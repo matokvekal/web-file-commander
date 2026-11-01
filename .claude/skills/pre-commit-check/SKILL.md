@@ -1,7 +1,6 @@
 ---
 name: pre-commit-check
-description: Verify the project is ready for a commit by checking the AGENTS.md project rules, git status and `npm run check` (lint, tests, build), then report each check and a ready or not-ready verdict. Use when the user says "pre-commit check", "is this ready to commit", or "verify before commit". Never commits.
-disable-model-invocation: true
+description: Read-only check that the repo is ready for a commit (AGENTS.md rules, git status, `npm run check`), ending in a ready or not-ready verdict. Use when the user (1) asks "is this ready to commit?", (2) asks to "verify before commit" or run a "pre-commit check", or (3) asks whether lint, tests and build pass before committing. Not for code review, implementing or fixing changes, committing, or pushing; never stages, commits or pushes.
 allowed-tools: Read, Grep, Bash, PowerShell
 ---
 
