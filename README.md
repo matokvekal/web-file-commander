@@ -4,7 +4,8 @@ A small, read-only file browser that runs in the browser. Pick a folder, see its
 
 ## Requirements
 
-- Node.js and npm.
+- Node.js 22.6 or newer and npm (the MCP server in `src/mcp/` runs with `--experimental-strip-types`).
+- For the Claude Code extras: PowerShell (`pwsh` or Windows PowerShell) for the `pre-commit-check` skill script.
 - Chrome or Edge (version 86 or later) to use the app. It uses the browser folder picker, which Firefox and Safari do not support; there the app shows a message and disables Select Folder.
 - Open the app on `http://localhost` or over HTTPS. The folder picker does not work on a plain `http://` network address.
 
