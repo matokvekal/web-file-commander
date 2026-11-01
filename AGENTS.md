@@ -18,11 +18,7 @@ BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Te
 - Only `src/access/` may touch the browser folder API (`FolderAccess` port; real and fake adapters). Folder state lives in `src/state/useFolderBrowser.ts`. Tests use `fakeFolderAccess`. A test enforces the boundary.
 - Planning artifacts (brief, PRD, UX, architecture spine, `epics.md`) are under `_bmad-output/planning-artifacts/`; sprint status and the retrospective under `_bmad-output/implementation-artifacts/`.
 - Read-only MCP server (stdio, registered in `.mcp.json`): `src/mcp/server.ts`, with listing logic in `src/mcp/projectFiles.ts`; how to verify it: `docs/exercise-12-mcp-server.md`. It runs with `node --experimental-strip-types`, so imports in `src/mcp/` need `.ts` extensions.
-- Read-only review slash command `/project-check <file-path> <review-focus>`: `.claude/commands/project-check.md`; results and pending manual tests: `docs/level-5-exercise-4-project-check.md`.
-- Local plugin `project-tools` (copies of the skill and command plus a SessionStart hook) in the marketplace `.claude-plugin/marketplace.json` (also lists `mods/file-viewer`), offered and enabled via `.claude/settings.json`: `docs/level-5-exercise-5-plugin.md`; fresh-clone setup and its verification: `docs/level-5-exercise-8-fresh-clone.md`.
-- Read-only reviewer subagent `project-reviewer` (tools Read, Grep, Glob): `.claude/agents/project-reviewer.md`; test results: `docs/level-5-exercise-9-project-reviewer.md`.
-- Skill `/review-with-agent <files>` (`context: fork`, runs on `project-reviewer`, returns a short verdict): `.claude/skills/review-with-agent/SKILL.md`; test and `/context` comparison: `docs/level-5-exercise-10-review-with-agent.md`.
-- Claude Code mod `mods/file-viewer/` (`/file-viewer` pane with the project tree, uses `$.fs` only): `docs/level-5-exercise-6-file-viewer-mod.md`; file selection and preview: `docs/level-5-exercise-7-file-preview.md` (unit tests in `src/fileViewerMod.test.ts`).
+- Claude Code extras (`/project-check`, `/review-with-agent`, `project-reviewer` agent, `local-marketplace` plugins, `mods/file-viewer`): results and manual tests in `docs/level-5-exercise-*.md`; why each exists in `CLAUDE.md`. Mod unit tests: `src/fileViewerMod.test.ts`.
 - Requirements draft and exercise notes: `docs/` (`docs/requirements.md` is a draft).
 
 ## Running and verifying
