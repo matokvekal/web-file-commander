@@ -64,4 +64,5 @@ The automated tests cannot cover the real folder picker. Checklists for Chrome/E
 - Exercise write-ups: `docs/exercise-02-brief.md`, `docs/exercise-03-bmad-install.md`, `docs/exercise-04-project-context.md`, then `docs/exercise-05-*.md` to `docs/exercise-11-lessons.md`.
 - BMAD planning artifacts (brief, PRD, UX, architecture, epics): `_bmad-output/planning-artifacts/`.
 - Sprint status and the Epic 1 retrospective: `_bmad-output/implementation-artifacts/`.
+- Read-only MCP server (Level 5 Exercise 1): `docs/exercise-12-mcp-server.md`.
 - Project rules for AI coding agents: `AGENTS.md` (imported by `CLAUDE.md`).

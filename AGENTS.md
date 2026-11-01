@@ -17,6 +17,7 @@ BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Te
 - Entry: `src/main.tsx` mounts `App` into `#app`; layout in `src/App.tsx` and `src/App.css`.
 - Only `src/access/` may touch the browser folder API (`FolderAccess` port; real and fake adapters). Folder state lives in `src/state/useFolderBrowser.ts`. Tests use `fakeFolderAccess`. A test enforces the boundary.
 - Planning artifacts (brief, PRD, UX, architecture spine, `epics.md`) are under `_bmad-output/planning-artifacts/`; sprint status and the retrospective under `_bmad-output/implementation-artifacts/`.
+- Read-only MCP server (stdio, registered in `.mcp.json`): `src/mcp/server.ts`, with listing logic in `src/mcp/projectFiles.ts`; how to verify it: `docs/exercise-12-mcp-server.md`. It runs with `node --experimental-strip-types`, so imports in `src/mcp/` need `.ts` extensions.
 - Requirements draft and exercise notes: `docs/` (`docs/requirements.md` is a draft).
 
 ## Running and verifying
