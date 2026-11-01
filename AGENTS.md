@@ -21,6 +21,7 @@ BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Te
 - Read-only review slash command `/project-check <file-path> <review-focus>`: `.claude/commands/project-check.md`; results and pending manual tests: `docs/level-5-exercise-4-project-check.md`.
 - Local plugin `project-tools` (copies of the skill and command plus a SessionStart hook) in the marketplace `.claude-plugin/marketplace.json` (also lists `mods/file-viewer`), offered and enabled via `.claude/settings.json`: `docs/level-5-exercise-5-plugin.md`; fresh-clone setup and its verification: `docs/level-5-exercise-8-fresh-clone.md`.
 - Read-only reviewer subagent `project-reviewer` (tools Read, Grep, Glob): `.claude/agents/project-reviewer.md`; test results: `docs/level-5-exercise-9-project-reviewer.md`.
+- Skill `/review-with-agent <files>` (`context: fork`, runs on `project-reviewer`, returns a short verdict): `.claude/skills/review-with-agent/SKILL.md`; test and `/context` comparison: `docs/level-5-exercise-10-review-with-agent.md`.
 - Claude Code mod `mods/file-viewer/` (`/file-viewer` pane with the project tree, uses `$.fs` only): `docs/level-5-exercise-6-file-viewer-mod.md`; file selection and preview: `docs/level-5-exercise-7-file-preview.md` (unit tests in `src/fileViewerMod.test.ts`).
 - Requirements draft and exercise notes: `docs/` (`docs/requirements.md` is a draft).
 
