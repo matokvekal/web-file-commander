@@ -1,0 +1,7 @@
+{
+  "extraKnownMarketplaces": {
+    "local-marketplace": {
+      "source": { "source": "directory", "path": "./local-marketplace" }
+    }
+  }
+}

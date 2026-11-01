@@ -1,0 +1,6 @@
+{
+  "name": "project-tools",
+  "version": "1.0.0",
+  "author": { "name": "gilad" },
+  "description": "pre-commit-check skill, /project-check command and a minimal SessionStart hook"
+}

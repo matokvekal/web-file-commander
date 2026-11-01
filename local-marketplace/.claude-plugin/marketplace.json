@@ -1,0 +1,12 @@
+{
+  "name": "local-marketplace",
+  "description": "Local marketplace for the Web File Commander project",
+  "owner": { "name": "gilad" },
+  "plugins": [
+    {
+      "name": "project-tools",
+      "source": "./plugins/project-tools",
+      "description": "pre-commit-check skill and /project-check command for this project"
+    }
+  ]
+}
