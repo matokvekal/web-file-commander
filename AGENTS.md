@@ -19,7 +19,7 @@ BMAD Level 4 homework project. React 19 + TypeScript + Vite, Vitest + jsdom + Te
 - Planning artifacts (brief, PRD, UX, architecture spine, `epics.md`) are under `_bmad-output/planning-artifacts/`; sprint status and the retrospective under `_bmad-output/implementation-artifacts/`.
 - Read-only MCP server (stdio, registered in `.mcp.json`): `src/mcp/server.ts`, with listing logic in `src/mcp/projectFiles.ts`; how to verify it: `docs/exercise-12-mcp-server.md`. It runs with `node --experimental-strip-types`, so imports in `src/mcp/` need `.ts` extensions.
 - Read-only review slash command `/project-check <file-path> <review-focus>`: `.claude/commands/project-check.md`; results and pending manual tests: `docs/level-5-exercise-4-project-check.md`.
-- Local plugin `project-tools` (copies of the skill and command plus a SessionStart hook) in the marketplace `.claude-plugin/marketplace.json` (also lists `mods/file-viewer`), offered and enabled via `.claude/settings.json`: `docs/level-5-exercise-5-plugin.md`.
+- Local plugin `project-tools` (copies of the skill and command plus a SessionStart hook) in the marketplace `.claude-plugin/marketplace.json` (also lists `mods/file-viewer`), offered and enabled via `.claude/settings.json`: `docs/level-5-exercise-5-plugin.md`; fresh-clone setup and its verification: `docs/level-5-exercise-8-fresh-clone.md`.
 - Claude Code mod `mods/file-viewer/` (`/file-viewer` pane with the project tree, uses `$.fs` only): `docs/level-5-exercise-6-file-viewer-mod.md`; file selection and preview: `docs/level-5-exercise-7-file-preview.md` (unit tests in `src/fileViewerMod.test.ts`).
 - Requirements draft and exercise notes: `docs/` (`docs/requirements.md` is a draft).
 
